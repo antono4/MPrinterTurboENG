@@ -164,15 +164,15 @@ def test_loomloom_model_reference_prices_match_known_models_and_ignore_new_ones(
     exec(compile(module, str(WEBUI_MAIN), "exec"), namespace)
 
     known_models = (
-        ("google/veo3.1-fast-preview", "Veo3.1-fast", "￥0.700/秒"),
-        ("", "通义万相2.2-文生视频-Fast-Lora", "￥0.350–0.770/条"),
-        ("", "即梦3.0-文生视频-720P", "￥0.230/秒"),
-        ("", "即梦3.0Pro-视频", "￥1.000/秒"),
-        ("", "Veo3", "￥1.400/秒"),
-        ("", "Veo3.1", "￥1.400/秒"),
-        ("", "KlingV2", "￥10.00–20.00/条"),
-        ("", "Kling V2.1 Master", "￥10.00–20.00/条"),
-        ("", "ViduQ3-Pro", "￥0.440–1.000/秒"),
+        ("google/veo3.1-fast-preview", "Veo3.1-fast", "¥0.700/sec"),
+        ("", "通义万相2.2-文生视频-Fast-Lora", "¥0.350–0.770/video"),
+        ("", "即梦3.0-文生视频-720P", "¥0.230/sec"),
+        ("", "即梦3.0Pro-视频", "¥1.000/sec"),
+        ("", "Veo3", "¥1.400/sec"),
+        ("", "Veo3.1", "¥1.400/sec"),
+        ("", "KlingV2", "¥10.00–20.00/video"),
+        ("", "Kling V2.1 Master", "¥10.00–20.00/video"),
+        ("", "ViduQ3-Pro", "¥0.440–1.000/sec"),
     )
     unknown = SimpleNamespace(model_id="future/model", display_name="Future Model")
 

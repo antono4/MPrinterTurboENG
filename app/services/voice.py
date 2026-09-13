@@ -1722,7 +1722,7 @@ def mimo_tts(
     model_name = config.app.get("mimo_tts_model_name", "") or _MIMO_DEFAULT_TTS_MODEL
     style_prompt = config.app.get(
         "mimo_tts_style_prompt",
-        "请用自然、清晰、适合短视频旁白的语气朗读。",
+        "Please speak in a natural, clear tone suitable for short-video narration.",
     )
 
     _configure_pydub_ffmpeg(AudioSegment)

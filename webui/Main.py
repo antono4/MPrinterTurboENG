@@ -143,7 +143,7 @@ DEFAULT_VIDEO_CODEC_OPTION = "__default__"
 # 的参考价，用于帮助选择模型；最终费用按实际模型调用结算。别名同时覆盖
 # 当前展示名和常见模型 ID，未收录的新模型会自然返回空价格，不影响选择或报价。
 LOOMLOOM_VIDEO_MODEL_PRICES = (
-    (("veo31fast", "googleveo31fastpreview"), "￥0.700/秒", "￥0.700/秒"),
+    (("veo31fast", "googleveo31fastpreview"), "¥0.700/sec", "¥0.700/sec"),
     (
         (
             "通义万相22图生视频fastlora",
@@ -153,27 +153,27 @@ LOOMLOOM_VIDEO_MODEL_PRICES = (
             "wanx22i2vfastlora",
             "wanx22t2vfastlora",
         ),
-        "￥0.350–0.770/条",
-        "￥0.350/条（480P）；￥0.770/条（720P）",
+        "¥0.350–0.770/video",
+        "¥0.350/video (480P); ¥0.770/video (720P)",
     ),
-    (("即梦30文生视频720p", "jimeng30t2v720p"), "￥0.230/秒", "￥0.230/秒"),
-    (("即梦30pro视频", "jimeng30pro视频", "jimeng30provideo"), "￥1.000/秒", "￥1.000/秒"),
-    (("veo3", "googleveo3"), "￥1.400/秒", "￥1.400/秒"),
-    (("veo31", "googleveo31"), "￥1.400/秒", "￥1.400/秒"),
+    (("即梦30文生视频720p", "jimeng30t2v720p"), "¥0.230/sec", "¥0.230/sec"),
+    (("即梦30pro视频", "jimeng30pro视频", "jimeng30provideo"), "¥1.000/sec", "¥1.000/sec"),
+    (("veo3", "googleveo3"), "¥1.400/sec", "¥1.400/sec"),
+    (("veo31", "googleveo31"), "¥1.400/sec", "¥1.400/sec"),
     (
         ("klingv2", "可灵v2"),
-        "￥10.00–20.00/条",
-        "￥10.00/条（5 秒）；￥20.00/条（10 秒）",
+        "¥10.00–20.00/video",
+        "¥10.00/video (5 sec); ¥20.00/video (10 sec)",
     ),
     (
         ("klingv21master", "可灵v21master"),
-        "￥10.00–20.00/条",
-        "￥10.00/条（5 秒）；￥20.00/条（10 秒）",
+        "¥10.00–20.00/video",
+        "¥10.00/video (5 sec); ¥20.00/video (10 sec)",
     ),
     (
         ("viduq3pro",),
-        "￥0.440–1.000/秒",
-        "￥0.440/秒（540P）；￥0.940/秒（720P）；￥1.000/秒（1080P）",
+        "¥0.440–1.000/sec",
+        "¥0.440/sec (540P); ¥0.940/sec (720P); ¥1.000/sec (1080P)",
     ),
 )
 DEFAULT_SUBTITLE_SETTINGS = {
@@ -1717,7 +1717,7 @@ def _render_top_bar():
                     selected_index = i
 
             selected_language_code = st.selectbox(
-                "Language / 语言",
+                "Language",
                 options=language_codes,
                 index=selected_index,
                 format_func=lambda code: locales[code].get("Language", code),

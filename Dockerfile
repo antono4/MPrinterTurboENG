@@ -4,21 +4,24 @@ FROM python:3.11-slim-bullseye
 # Set the working directory in the container
 WORKDIR /MoneyPrinterTurbo
 
-# 设置/MoneyPrinterTurbo目录权限为777
+# Grant world-writable permissions on the /MoneyPrinterTurbo directory
 RUN chmod 777 /MoneyPrinterTurbo
 
 ENV PYTHONPATH="/MoneyPrinterTurbo"
 
-# 本地用户默认继续优先使用国内镜像；GitHub Actions 发布 GHCR 镜像时使用 default，
-# 避免海外 runner 访问国内镜像过慢导致镜像发布长时间卡住。
+# Local builds prefer China mirrors by default; GitHub Actions publishing GHCR
+# images uses "default" so overseas runners are not slowed down by cross-border
+# mirror access.
 ARG DOCKER_BUILD_MIRROR=china
 ARG PIP_USE_OFFICIAL=0
 
-# 系统依赖安装需要同时满足两点：国内环境保留镜像回退能力，所有镜像均
-# 失败时必须让 Docker 构建立刻失败。旧循环最后执行的 sleep 总会返回 0，
-# 导致 git/ffmpeg 未安装时仍生成不可用镜像。这里把“写入软件源”“安装”
-# 和“三次重试”拆成边界清晰的 shell 函数，并用函数返回值决定是否继续。
-# 所有软件源统一使用 HTTPS，避免部分网络环境直接拦截明文 HTTP 请求。
+# System dependency installation must satisfy two requirements: China builds
+# keep mirror fallback, and when every mirror fails the Docker build must fail
+# immediately. The old loop's trailing sleep always returned 0, so it produced
+# a broken image even when git/ffmpeg never installed. "Write sources",
+# "install", and "retry three times" are now split into clearly scoped shell
+# functions, and the return value decides whether to continue. All software
+# sources use HTTPS so plain HTTP requests are not blocked by some networks.
 RUN set -u; \
     write_debian_sources() { \
         main_url="$1"; \
@@ -82,7 +85,8 @@ RUN set -u; \
 # Copy only the requirements.txt first to leverage Docker cache
 COPY requirements.txt ./
 
-# 本地默认优先国内 PyPI 镜像；GHCR 发布使用官方 PyPI，避免海外 runner 因跨境镜像访问变慢。
+# Local builds prefer China's PyPI mirror; GHCR releases use official PyPI so
+# overseas runners are not slowed down by cross-border mirror access.
 RUN if [ "$PIP_USE_OFFICIAL" = "1" ]; then \
         pip install --no-cache-dir --retries 3 --timeout 60 -r requirements.txt; \
     else \
@@ -97,8 +101,9 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 8501
 
-# 容器内部必须监听 0.0.0.0，宿主机仍通过 docker 端口映射限制为 127.0.0.1。
-# browser.serverAddress 只决定浏览器展示的访问地址，不能替代 server.address。
+# Inside the container the server must listen on 0.0.0.0; the host still
+# restricts access to 127.0.0.1 through docker port mapping. browser.serverAddress
+# only decides the address shown to the browser, it does not replace server.address.
 CMD ["streamlit", "run", "./webui/Main.py", "--server.address=0.0.0.0", "--server.port=8501", "--browser.serverAddress=127.0.0.1", "--server.enableCORS=True", "--browser.gatherUsageStats=False", "--client.toolbarMode=minimal", "--logger.hideWelcomeMessage=True", "--server.showEmailPrompt=False"]
 
 # 1. Build the Docker image using the following command
