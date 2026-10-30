@@ -1,1 +1,32 @@
-Last updated: 2026-10-30 07:58:31 WIB
+# MPrinterTurboENG
+
+
+
+## 📋 Overview
+
+This repository contains **232 files** and is built with the following technologies:
+
+Python, Docker
+
+## 🚀 Quick Start
+
+```bash
+pip install -r requirements.txt
+python main.py
+```
+
+## ✨ Features
+
+- 🐳 Docker support
+- 📝 Auto-generated documentation
+
+## 🛠️ Technologies
+
+Python, Docker
+
+## 📄 License
+
+MIT License
+
+---
+*Last updated: 2026-10-30 09:57:40 WIB*
